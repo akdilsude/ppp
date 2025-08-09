@@ -1,11 +1,12 @@
 SRCS	=	cleanup.c		\
-			check.c			\
-			monitor.c		\
 			main.c			\
-			setup.c			\
-			routine.c		\
+			monitor.c		\
 			report.c		\
+			routine.c		\
+			setup.c			\
+			start_create.c	\
 			time.c			\
+			utils.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 RM		=	rm -f

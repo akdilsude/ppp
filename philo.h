@@ -22,72 +22,91 @@
 #include <unistd.h>
 #include <stdio.h>
 
-typedef struct s_rules
+typedef struct	s_rules
 {
-    int     count;
-    long    die_time;
-    long    eat_time;
-    long    sleep_time;
-    int     must_eat;
-    bool    has_limit;
-} t_rules;
+	int				count;
+	long			die_time;
+	long			eat_time;
+	long			sleep_time;
+	int				must_eat;
+	bool			has_limit;
+}	t_rules;
 
-typedef struct s_forks
+typedef struct	s_forks
 {
-    pthread_mutex_t *forks;
-} t_forks;
+	pthread_mutex_t	*forks;
+}	t_forks;
 
-typedef struct s_control
+typedef struct	s_control
 {
-    bool            stop;
-    pthread_mutex_t stop_lock;
-    pthread_mutex_t print_lock;
-} t_control;
+	bool			stop;
+	pthread_mutex_t	stop_lock;
+	pthread_mutex_t	print_lock;
+}	t_control;
 
-typedef struct s_philo t_philo;
+typedef struct	s_philo t_philo;
 
-typedef struct s_sim
+typedef struct	s_sim
 {
-    t_rules         rules;
-    t_control       control;
-    t_forks         forks;
-    t_philo         **philos;
-    long            start_time;
-    pthread_t       monitor;
-} t_sim;
+	t_rules			rules;
+	t_control		control;
+	t_forks			forks;
+	t_philo			**philos;
+	long			start_time;
+	pthread_t		monitor;
+}	t_sim;
 
-struct s_philo
+struct	s_philo
 {
-    int             id;
-    int             eat_count;
-    long            last_meal;
-    pthread_t       thread;
-    pthread_mutex_t eat_lock;
-    t_sim           *sim;
+	int				id;
+	int				eat_count;
+	long			last_meal;
+	pthread_t		thread;
+	pthread_mutex_t	eat_lock;
+	t_sim			*sim;
 };
 
-int             ft_atoi(const char *str);
-size_t          ft_strlen(const char *s);
+int		run_simulation(int argc, char **argv);
+int		is_digit(char *str);
+void	cleanup_philos(t_sim *sim, int n);
+void	stop_simulation(t_sim *sim);
 
-int ft_set_rules(t_rules *rules, int ac, char **av);
-t_sim           *init_sim(int ac, char **av, int i);
-int            init_forks(t_sim *sim);
-int init_philos(t_sim *sim);
-char            *ft_format_status(t_philo *philo, char *str);
 
-void            *ft_philo(void *data);
 
-time_t          get_time_in_ms(void);
-void            ft_philo_sleep(t_sim *sim, time_t sleep_time);
-void            ft_routine_start_delay(time_t start_time);
 
-void            ft_write_status(t_philo *philo, char *str);
-int             print_error(char *msg);
 
-void            *controller_loop(void *data);
-bool is_stopped(t_sim *sim);
 
-void            free_sim(t_sim *sim);
-void            destroy_mutexes(t_sim *sim);
+
+
+
+
+
+
+
+
+
+
+
+
+
+int		ft_atoi(const char *str);
+size_t	ft_strlen(const char *s);
+
+t_sim	*init_sim(int argc, char **argv);
+char	*ft_format_status(t_philo *philo, char *str);
+
+void	*philo_main(void *data);
+
+time_t	get_time_in_ms(void);
+void	ft_philo_sleep(t_sim *sim, time_t sleep_time);
+void	wait_until_start(time_t start_time);
+
+void	ft_write_status(t_philo *philo, char *str);
+int		print_error(char *msg);
+
+void	*controller_loop(void *data);
+bool	is_stopped(t_sim *sim);
+
+void	free_sim(t_sim *sim);
 
 #endif

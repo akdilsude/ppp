@@ -6,35 +6,35 @@
 /*   By: sakdil < sakdil@student.42istanbul.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 14:13:52 by sakdil            #+#    #+#             */
-/*   Updated: 2025/08/08 23:10:32 by sakdil           ###   ########.fr       */
+/*   Updated: 2025/08/09 13:45:55 by sakdil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-time_t get_time_in_ms(void)
+time_t	get_time_in_ms(void)
 {
-    struct timeval tv;
+	struct timeval	tv;
 
-    gettimeofday(&tv, NULL);
-    return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void ft_philo_sleep(t_sim *sim, time_t sleep_time)
+void	ft_philo_sleep(t_sim *sim, time_t sleep_time)
 {
-    time_t wake_up;
+	time_t	wake_up;
 
-    wake_up = get_time_in_ms() + sleep_time;
-    while (get_time_in_ms() < wake_up)
-    {
-        if (is_stopped(sim))
-            break;
-        usleep(100);
-    }
+	wake_up = get_time_in_ms() + sleep_time;
+	while (get_time_in_ms() < wake_up)
+	{
+		if (is_stopped(sim))
+			break;
+		usleep(100);
+	}
 }
 
-void ft_routine_start_delay(time_t start_time)
+void	wait_until_start(time_t start_time)
 {
-    while (get_time_in_ms() < start_time)
-        usleep(10);
+	while (get_time_in_ms() < start_time)
+		usleep(10);
 }
